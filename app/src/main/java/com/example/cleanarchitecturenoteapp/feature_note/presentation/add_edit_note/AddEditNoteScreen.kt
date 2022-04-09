@@ -77,13 +77,13 @@ fun AddEditNoteScreen(
     ) {
 
         Column(
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .background(noteBackgroundAnimatable.value)
                 .padding(16.dp)
         ) {
             Row(
-                modifier = androidx.compose.ui.Modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -91,7 +91,7 @@ fun AddEditNoteScreen(
                 Note.noteColors.forEach { color ->
                     val colorInt = color.toArgb()
                     Box(
-                        modifier = androidx.compose.ui.Modifier
+                        modifier = Modifier
                             .size(50.dp)
                             .shadow(15.dp, CircleShape)
                             .clip(CircleShape)
@@ -108,16 +108,17 @@ fun AddEditNoteScreen(
                                     noteBackgroundAnimatable.animateTo(
                                         targetValue = Color(colorInt),
                                         animationSpec = tween(
-                                            durationMillis = 500
+                                            durationMillis = 500 // duration for the animation
                                         )
                                     )
                                 }
+                                // Here we are updating the selected color to the viewmodel event
                                 viewModel.onEvent(AddEditNoteEvent.ChangeColor(colorInt))
                             }
                     )
                 }
             }
-            Spacer(modifier = androidx.compose.ui.Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(
                 text = titleState.text,
                 hint = titleState.hint,
@@ -125,19 +126,19 @@ fun AddEditNoteScreen(
                     viewModel.onEvent(AddEditNoteEvent.EnteredTitle(it))
                 },
                 onFocusChange = {
-                    viewModel.onEvent(AddEditNoteEvent.ChangedContentFocus(it))
+                    viewModel.onEvent(AddEditNoteEvent.ChangedTitleFocus(it))
                 },
-                isHintVisible = contentState.isHintVisible,
+                isHintVisible = titleState.isHintVisible,
                 singleLine = true,
                 textStyle = MaterialTheme.typography.h5
             )
 
-            Spacer(modifier = androidx.compose.ui.Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(
                 text = contentState.text,
                 hint = contentState.hint,
                 onValueChange = {
-                    viewModel.onEvent(AddEditNoteEvent.EnteredTitle(it))
+                    viewModel.onEvent(AddEditNoteEvent.EnteredContent(it))
                 },
                 onFocusChange = {
                     viewModel.onEvent(AddEditNoteEvent.ChangedContentFocus(it))

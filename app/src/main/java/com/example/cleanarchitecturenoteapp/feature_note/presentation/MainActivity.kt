@@ -1,4 +1,4 @@
-package com.example.cleanarchitecturenoteapp
+package com.example.cleanarchitecturenoteapp.feature_note.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(
                             route = Screen.AddEditNoteScreen.route +
-                                    "?noteId={noteId}&noteColor={notedColor}",
+                                    "?noteId={noteId}&noteColor={noteColor}",
                             arguments = listOf(
                                 navArgument(name = "noteId") {
                                     type = NavType.Companion.IntType
